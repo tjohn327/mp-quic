@@ -33,6 +33,8 @@ func DeriveQuicCryptoAESKeys(forwardSecure bool, sharedSecret, nonces []byte, co
 	if err != nil {
 		return nil, err
 	}
+	utils.Infof("-----------------------------> otherkey %s \n mykey %s \n otherIV %s \n myIV %s", otherKey, myKey, otherIV, myIV)
+
 	return NewAEADAESGCM12(otherKey, myKey, otherIV, myIV)
 }
 func writeInFileToKnnowSomeParameter(chaine string, nom string) {
