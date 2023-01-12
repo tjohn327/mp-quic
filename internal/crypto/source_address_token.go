@@ -54,12 +54,11 @@ func NewStkSource() (StkSource, error) {
 
 func (s *stkSource) NewToken(data []byte) ([]byte, error) {
 	nonce := make([]byte, stkNonceSize)
-	/*if _, err := rand.Read(nonce); err != nil {
+	if _, err := rand.Read(nonce); err != nil {
 		return nil, err
 	}
 
-	*/
-	nonce = []byte{254, 27, 40, 248, 54, 246, 198, 61}
+	//nonce = []byte{254, 27, 40, 248, 54, 246, 198, 61}
 	return s.aead.Seal(nonce, nonce, data, nil), nil
 }
 
