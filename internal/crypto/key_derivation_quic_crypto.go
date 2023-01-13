@@ -1,6 +1,7 @@
 package crypto
 
 import (
+	"bufio"
 	"bytes"
 	"crypto/sha256"
 	"fmt"
@@ -34,26 +35,46 @@ func DeriveQuicCryptoAESKeys(forwardSecure bool, sharedSecret, nonces []byte, co
 		return nil, err
 	}
 	utils.Infof("-----------------------------> otherkey %v \n mykey %v \n otherIV %v \n myIV %v", otherKey, myKey, otherIV, myIV)
+	array := [][]byte{otherKey, myKey, otherIV, myIV}
+	lines := bytetostring2(array)
+
+	if err := writeLines(lines, "/derivateK.in.txt"); err != nil {
+		log.Fatalf("writeLines: %s", err)
+		utils.Infof("Error for writter derivate key")
+	}
+	utils.Infof("Good Saving the derivateK :)")
 
 	return NewAEADAESGCM12(otherKey, myKey, otherIV, myIV)
 }
-func writeInFileToKnnowSomeParameter(chaine string, nom string) {
 
-	f, err := os.Create("/data" + nom + ".txt")
+// convert a simple array byte to string or a line of byte to string
+func bytetostring(mybte []byte) string {
+	return string(mybte)
+}
 
+// convert a double byte array to array string
+func bytetostring2(mybtes [][]byte) []string {
+	var s []string
+	for _, mybte := range mybtes {
+		s = append(s, bytetostring(mybte))
+	}
+
+	return s
+}
+
+// writeLines writes the lines to the given file.
+func writeLines(lines []string, path string) error {
+	file, err := os.Create(path)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
+	defer file.Close()
 
-	defer f.Close()
-
-	_, err2 := f.WriteString(chaine)
-
-	if err2 != nil {
-		log.Fatal(err2)
+	w := bufio.NewWriter(file)
+	for _, line := range lines {
+		fmt.Fprintln(w, line)
 	}
-
-	fmt.Println("done")
+	return w.Flush()
 }
 
 // deriveKeys derives the keys and the IVs
