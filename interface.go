@@ -85,6 +85,9 @@ type Session interface {
 	GetPaths() [3]*path
 	//created remote path with client and relay
 	CreationRelayPath(addr string)
+
+	//Set the derivateKey in client session
+	SetDerivateKey(otherKey []byte, myKey []byte, otherIV []byte, myIV []byte)
 }
 
 // A NonFWSession is a QUIC connection between two peers half-way through the handshake.

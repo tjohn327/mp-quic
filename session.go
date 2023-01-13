@@ -979,3 +979,6 @@ func (s *session) CreationRelayPath(addr string) {
 		utils.Debugf("Created remote path with %s ", addr)
 	}
 }
+func (s *session) SetDerivateKey(otherKey []byte, myKey []byte, otherIV []byte, myIV []byte) {
+	s.cryptoSetup.SetDerivationKey(otherKey, myKey, otherIV, myIV)
+}

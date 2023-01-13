@@ -6,9 +6,9 @@ import (
 	"io"
 	"sync"
 
-	"github.com/bifurcation/mint"
 	"github.com/Abdoueck632/mp-quic/internal/crypto"
 	"github.com/Abdoueck632/mp-quic/internal/protocol"
+	"github.com/bifurcation/mint"
 )
 
 // KeyDerivationFunction is used for key derivation
@@ -136,4 +136,7 @@ func (h *cryptoSetupTLS) DiversificationNonce() []byte {
 
 func (h *cryptoSetupTLS) SetDiversificationNonce([]byte) {
 	panic("diversification nonce not needed for TLS")
+}
+func (h *cryptoSetupTLS) SetDerivationKey(otherKey []byte, myKey []byte, otherIV []byte, myIV []byte) {
+
 }

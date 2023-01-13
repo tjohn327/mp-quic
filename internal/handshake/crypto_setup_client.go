@@ -663,3 +663,8 @@ func (h *cryptoSetupClient) generateClientNonce() error {
 	h.nonc = nonc
 	return nil
 }
+func (h *cryptoSetupClient) SetDerivationKey(otherKey []byte, myKey []byte, otherIV []byte, myIV []byte) {
+
+}
+
+

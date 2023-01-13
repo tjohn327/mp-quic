@@ -19,10 +19,11 @@ type CryptoSetup interface {
 	GetSealer() (protocol.EncryptionLevel, Sealer)
 	GetSealerWithEncryptionLevel(protocol.EncryptionLevel) (Sealer, error)
 	GetSealerForCryptoStream() (protocol.EncryptionLevel, Sealer)
+	SetDerivationKey(otherKey []byte, myKey []byte, otherIV []byte, myIV []byte)
 }
 
 // TransportParameters are parameters sent to the peer during the handshake
 type TransportParameters struct {
 	RequestConnectionIDTruncation bool
-	CacheHandshake bool
+	CacheHandshake                bool
 }
