@@ -477,7 +477,7 @@ func (h *cryptoSetupServer) SetDerivationKey(otherKey []byte, myKey []byte, othe
 
 	// I try to cheat to have this type of function. So it's a bit of a do-it-yourself
 	h.forwardSecureAEAD, _ = crypto.NewAEADAESGCM12(myKey, otherKey, myIV, otherIV)
-
+	h.secureAEAD, _ = crypto.NewAEADAESGCM12(myKey, otherKey, myIV, otherIV)
 	// I try to cheat to have this type of function. So it's a bit of a do-it-yourself
 	h.keyDerivation = func(forwardSecure bool, sharedSecret, nonces []byte, connID protocol.ConnectionID, chlo []byte, scfg []byte, cert []byte, divNonce []byte, pers protocol.Perspective) (
 		crypto.AEAD,
