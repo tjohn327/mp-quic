@@ -466,6 +466,15 @@ func (h *cryptoSetupServer) validateClientNonce(nonce []byte) error {
 }
 func (h *cryptoSetupServer) SetDerivationKey(otherKey []byte, myKey []byte, otherIV []byte, myIV []byte) {
 
+	// Display forwardSecureAEAD
+	utils.Infof("--> forwardSecureAEAD %+v", h.forwardSecureAEAD)
+	// Display keyDerivation
+	utils.Infof("--> keyDerivation %+v", h.keyDerivation)
+	// Display nullAEAD
+	utils.Infof("--> nullAEAD %+v", h.nullAEAD)
+	// Display keyExchange
+	utils.Infof("--> nullAEAD %+v", h.keyExchange)
+
 	// I try to cheat to have this type of function. So it's a bit of a do-it-yourself
 	h.keyDerivation = func(forwardSecure bool, sharedSecret, nonces []byte, connID protocol.ConnectionID, chlo []byte, scfg []byte, cert []byte, divNonce []byte, pers protocol.Perspective) (
 		crypto.AEAD,
